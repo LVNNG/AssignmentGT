@@ -188,3 +188,15 @@
 			});
 
 })(jQuery);
+
+let inquiryForm = document.getElementById("inquiryForm");
+inquiryForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+  
+	// handle submit
+	let name = document.getElementById("name");
+	let email = document.getElementById("email");
+	let message = document.getElementById("message");
+
+	console.log(name,email,message);
+  });
