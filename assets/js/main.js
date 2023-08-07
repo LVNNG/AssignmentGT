@@ -189,14 +189,47 @@
 
 })(jQuery);
 
-let inquiryForm = document.getElementById("inquiryForm");
-inquiryForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-  
-	// handle submit
-	let name = document.getElementById("name");
-	let email = document.getElementById("email");
-	let message = document.getElementById("message");
+console.log("hi")
 
-	console.log(name,email,message);
-  });
+function submitForm(){
+	event.preventDefault();
+
+	const form = document.getElementById('inquiryForm');
+	const formData = new FormData(form);
+
+	// Convert form data to JSON
+    const formDataJson = {};
+    formData.forEach((value, key) => {
+      formDataJson[key] = value;
+    });
+	    // Perform any processing with the form data here (e.g., sending it to AWS Lambda)
+
+    // For example, if using the Fetch API to send form data to AWS Lambda
+    fetch('https://gfggyptb6a.execute-api.ap-southeast-1.amazonaws.com/prod', {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(formDataJson)
+	  })
+	  .then(response => response.json())
+	  .then(data => {
+		// Handle the response from AWS Lambda (if needed)
+		console.log(data);
+		console.log(formDataJson)
+	  })
+	  .catch(error => {
+		// Handle any errors that occurred during the fetch
+		console.error('Error:', error);
+	  });
+  
+	  // You can also display a success message or perform any other actions after form submission
+	  alert('Form submitted successfully!');
+  
+	  // Optionally, you can reset the form after successful submission
+	  form.reset();
+  
+	  // Return false to prevent the form from refreshing the page
+
+	  return false;
+}
